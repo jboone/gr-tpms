@@ -26,14 +26,11 @@ For more background on this project, please watch Jared Boone's talk from ToorCo
 
 This software was developed for and tested with:
 
-* [rtl-sdr](http://sdr.osmocom.org/trac/wiki/rtl-sdr)
-* [GNU Radio](http://gnuradio.org) 3.7.3
 * [Python](http://python.org) 2.7
-* [NumPy](http://numpy.scipy.org/) Numerical Python library.
-* [SciPy](http://scipy.org/scipylib/) Scientific Python library.
-* [PyFFTW](http://hgomersall.github.io/pyFFTW/) Python interface to FFTW.
 * [FFTW](http://www.fftw.org) Fastest FFT in the West.
-* [PyTZ](http://pytz.sourceforge.net) Timezone library.
+* [GNU Radio](http://gnuradio.org) 3.7.3 (should work with earlier 3.7 releasese)
+* [rtl-sdr](http://sdr.osmocom.org/trac/wiki/rtl-sdr)
+* [gr-osmosdr](http://sdr.osmocom.org/trac/wiki/GrOsmoSDR)
 * [crcmod](http://crcmod.sourceforge.net), CRC library for Python.
 
 # Hardware
@@ -108,9 +105,15 @@ following:
     mkdir build
     cd build
     cmake ..
-    # Or use ccmake to make adjustments. I've had to tweak Python paths on Mac OS X.
     make
     sudo make install
+
+If you have trouble building or running gr-tpms, check that you have all the
+dependencies installed. Also, review your CMake configuration by running
+"ccmake .." instead of "cmake .." and reviewing the "advanced mode" options.
+For example, using MacPorts on Mac OS X 10.9, I've had to adjust
+PYTHON_INCLUDE_DIR and PYTHON_LIBRARY to start with "/opt/local" instead of the
+detected path.
 
 # Using
 
@@ -132,9 +135,20 @@ Optional arguments to tpms_rx include:
     --bursts: Output a complex<float32> file of each burst of significant energy.
     --raw: Output undecoded bits of detected packets.
 
-To make use of raw burst files, to identify new packet types not currently handled
-by gr-tpms, see my sister project, [tpms](https://github.com/jboone/tpms), which
-contains some visualization and testing tools and techniques.
+While gr-tpms is running, you should see a line printed for each TPMS transmission
+that gr-tpms can successfully detect, demodulate, and decode. There are several
+modulation and encoding schemes that gr-tpms can handle, but certainly many
+remain to be observed and reversed. The burst option is handy for capturing raw
+baseband data for packets that gr-tpms doesn't recognize.
+
+The output of gr-tpms is the recovered contents (bits) of the received packets.
+At the moment, you're on your own as far as figuring out which bits represent a
+sensor's unique identifier, tire pressure or temperature, and checksum or CRC field.
+As you accumulate more raw packets, you can observe statistics which indicate
+the nature of bits in the many different types of packets. For more information on
+how this is done, see my ToorCon talk (linked above) and check out my sister
+project, [tpms](https://github.com/jboone/tpms), which contains some visualization
+and testing tools and techniques.
 
 # License
 
