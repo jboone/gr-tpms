@@ -442,7 +442,7 @@ class top_block(gr.top_block):
 			raise RuntimeError('No source specified')
 
 		if args.bursts:
-			self.burst_detector = tpms.burst_detector(5.0, 0.001)
+			self.burst_detector = tpms.burst_detector()
 
 			self.burst_file_sink = blocks.tagged_file_sink(gr.sizeof_gr_complex*1, if_sampling_rate)
 			self.connect((self.source, 0), (self.burst_detector, 0))
