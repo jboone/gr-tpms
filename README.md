@@ -169,6 +169,12 @@ sudo ./pybombs install rtl-sdr
 sudo ./pybombs install gr-osmosdr
 ```
 
+> **Update Lib Links** (don't forget this!)
+
+```shell
+sudo ldconfig
+```
+
 # Building
 
 Assuming you have the above prerequisites installed, clone this repo and do the
