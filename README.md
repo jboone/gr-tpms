@@ -33,6 +33,13 @@ This software was developed for and tested with:
 * [gr-osmosdr](http://sdr.osmocom.org/trac/wiki/GrOsmoSDR)
 * [crcmod](http://crcmod.sourceforge.net), CRC library for Python.
 
+Optional dependencies (for tpms_burst_ping):
+
+* [Watchdog](http://packages.python.org/watchdog/) 0.6.0. Filesystem monitoring library for Python.
+* [portaudio](http://www.portaudio.com/) v19. Audio I/O abstraction library.
+* [pyaudio](http://people.csail.mit.edu/hubert/pyaudio/) 0.2.7. Python wrapper for portaudio.
+* [numpy](http://www.numpy.org) 1.8.0. Numerical Python library.
+
 # Hardware
 
 I used a variety of hardware for receiving tire pressure monitors. If you don't already
@@ -149,6 +156,13 @@ the nature of bits in the many different types of packets. For more information 
 how this is done, see my ToorCon talk (linked above) and check out my sister
 project, [tpms](https://github.com/jboone/tpms), which contains some visualization
 and testing tools and techniques.
+
+If you want to drive around, listening for TPMS signals, I recommend using the
+optional tpms_burst_ping utility. It takes a single, optional argument that 
+specifies a directory to watch for --burst files to appear. When a file appears
+(a burst occurs), tpms_burst_ping will emit a "ping" through your audio output.
+
+    tpms_burst_ping .
 
 # License
 
