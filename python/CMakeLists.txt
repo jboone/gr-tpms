@@ -31,6 +31,7 @@ GR_PYTHON_INSTALL(
     __init__.py
     bit_coding.py
     packet_check.py
+    source.py
     DESTINATION ${GR_PYTHON_DIR}/tpms
 )
 
