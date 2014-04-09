@@ -27,14 +27,14 @@ from gnuradio.filter import firdes
 import tpms
 
 class ask_channel_filter(gr.hier_block2):
-	def __init__(self, if_sampling_rate, decimation, symbol_rate):
+	def __init__(self, sample_rate, decimation, symbol_rate):
 		super(ask_channel_filter, self).__init__(
 			"ask_channel_filter",
 			gr.io_signature(1, 1, gr.sizeof_float*1),
 			gr.io_signature(1, 1, gr.sizeof_float*1),
 		)
 
-		output_sampling_rate = float(if_sampling_rate) / decimation
+		output_sampling_rate = float(sample_rate) / decimation
 		output_nyquist = output_sampling_rate / 2.0
 
 		filter_attenuation_db = 40
@@ -43,7 +43,7 @@ class ask_channel_filter(gr.hier_block2):
 		if (filter_cutoff + filter_transition) > output_nyquist:
 			raise RuntimeError('ASK channel filter exceeds Nyquist frequency')
 
-		filter_taps = firdes.low_pass_2(1.0, if_sampling_rate, filter_cutoff, filter_transition, filter_attenuation_db)
+		filter_taps = firdes.low_pass_2(1.0, sample_rate, filter_cutoff, filter_transition, filter_attenuation_db)
 		self.filter = filter.fir_filter_fff(decimation, (filter_taps))
 		self.connect((self, 0), (self.filter, 0))
 
