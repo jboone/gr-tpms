@@ -29,7 +29,9 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
+    ask.py
     bit_coding.py
+    fsk.py
     packet_check.py
     source.py
     DESTINATION ${GR_PYTHON_DIR}/tpms
