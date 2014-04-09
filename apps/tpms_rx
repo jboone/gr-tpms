@@ -41,6 +41,7 @@ from tpms.packet_check import packet_decode
 from tpms.source import source_hackrf, source_rtlsdr, source_file
 from tpms.ask import ask_channel_filter
 from tpms.fsk import fsk_center_tracking, fsk_demodulator
+from tpms.decode import clock_recovery
 
 class packet_sink(gr.basic_block):
 	def __init__(self, output_raw=False):
@@ -63,28 +64,6 @@ class packet_sink(gr.basic_block):
 		data_s = ''.join([str(c) for c in data])
 		d['data'] = data_s
 		packet_decode(d, output_raw=self.output_raw)
-
-class clock_recovery(gr.hier_block2):
-	def __init__(self, input_rate, symbol_rate):
-		super(clock_recovery, self).__init__(
-			"clock_recovery",
-			gr.io_signature(1, 1, gr.sizeof_float*1),
-			gr.io_signature(1, 1, gr.sizeof_char*1),
-		)
-
-		samples_per_symbol = float(input_rate) / symbol_rate
-		omega_relative_limit = 0.02
-		gain_mu = 0.4 / samples_per_symbol
-
-		self.clock_recovery = digital.clock_recovery_mm_ff(samples_per_symbol*(1+0.00), 0.25*gain_mu*gain_mu, 0.5, gain_mu, omega_relative_limit)
-		self.slicer = digital.binary_slicer_fb()
-
-		self.connect((self, 0), (self.clock_recovery, 0))
-		self.connect((self.clock_recovery, 0), (self.slicer, 0))
-		self.connect((self.slicer, 0), (self, 0))
-
-ask_clock_recovery = clock_recovery
-fsk_clock_recovery = clock_recovery
 
 def queue_handler(queue):
 	def queue_handler_fn():
@@ -144,19 +123,19 @@ class demodulate_ask(gr.hier_block2):
 				if not isinstance(access_codes, tuple):
 					raise RuntimeError('Access code formatting error')
 
-				clock_recovery = ask_clock_recovery(input_rate, symbol_rate)
-				self.connect((channel_filter, 0), (clock_recovery, 0))
+				reclock = clock_recovery(input_rate, symbol_rate)
+				self.connect((channel_filter, 0), (reclock, 0))
 
 				if bits_output:
 					input_rate_s = ('%.3f' % (input_rate / 1e3)).replace('.', 'k')
 					symbol_rate_s = ('%.3f' % (symbol_rate / 1e3)).replace('.', 'k')
 					filename = 'bit_ask_%s_%s.i8' % (input_rate_s, symbol_rate_s)
 					file_sink_bits = blocks.file_sink(gr.sizeof_char*1, filename, False)
-					self.connect((clock_recovery, 0), (file_sink_bits, 0))
+					self.connect((reclock, 0), (file_sink_bits, 0))
 
 				for access_code in access_codes:
 					correlator = digital.correlate_access_code_bb(access_code, 0)
-					self.connect((clock_recovery, 0), (correlator, 0))
+					self.connect((reclock, 0), (correlator, 0))
 
 					attributes = pmt.make_dict()
 					attributes = pmt.dict_add(attributes, pmt.intern("modulation"), pmt.intern("ask"))
@@ -219,12 +198,12 @@ class demodulate_fsk(gr.hier_block2):
 				if not isinstance(access_codes, tuple):
 					raise RuntimeError('Access code formatting error')
 
-				clock_recovery = fsk_clock_recovery(input_rate, symbol_rate)
-				self.connect((demodulator, 0), (clock_recovery, 0))
+				reclock = clock_recovery(input_rate, symbol_rate)
+				self.connect((demodulator, 0), (reclock, 0))
 
 				for access_code in access_codes:
 					correlator = digital.correlate_access_code_bb(access_code, 0)
-					self.connect((clock_recovery, 0), (correlator, 0))
+					self.connect((reclock, 0), (correlator, 0))
 
 					attributes = pmt.make_dict()
 					attributes = pmt.dict_add(attributes, pmt.intern("modulation"), pmt.intern("fsk"))

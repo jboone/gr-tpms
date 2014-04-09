@@ -31,6 +31,7 @@ GR_PYTHON_INSTALL(
     __init__.py
     ask.py
     bit_coding.py
+    decode.py
     fsk.py
     packet_check.py
     source.py
