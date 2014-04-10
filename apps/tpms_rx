@@ -222,12 +222,10 @@ class top_block(gr.top_block):
 			"top_block"
 		)
 
-		target_frequency = 315000000
-
 		if source == 'hackrf':
-			self.source = source_hackrf(target_frequency, args.if_rate)
+			self.source = source_hackrf(args.tuned_frequency, args.if_rate)
 		elif source == 'rtlsdr':
-			self.source = source_rtlsdr(target_frequency, args.if_rate)
+			self.source = source_rtlsdr(args.tuned_frequency, args.if_rate)
 		elif source == 'file':
 			self.source = source_file(args.file)
 		else:
@@ -255,6 +253,7 @@ def main():
 	parser.add_argument('-b', '--bursts', action="store_true", help="Save bursts of significant energy to separate files")
 	parser.add_argument('-r', '--raw', action="store_true", help="Include raw (undecoded) bits in output")
 	parser.add_argument('-i', '--if-rate', type=float, default=None, help="IF sampling rate")
+	parser.add_argument('-t', '--tuned-frequency', type=float, default=None, help="Receiver source center frequency")
 	args = parser.parse_args()
 
 	if args.file:
