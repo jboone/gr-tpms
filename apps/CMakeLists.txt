@@ -19,6 +19,7 @@ include(GrPython)
 
 GR_PYTHON_INSTALL(
     PROGRAMS
+    fsk_demod
     tpms_burst_ping
     tpms_rx
     DESTINATION bin
