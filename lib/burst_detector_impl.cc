@@ -59,7 +59,8 @@ namespace gr {
               gr::io_signature::make(1, 1, sizeof(gr_complex)),
               gr::io_signature::make(1, 1, sizeof(gr_complex))),
       d_block_size(1024),
-      d_readahead_items(1 * d_block_size)
+      d_advance(d_block_size / 2),
+      d_readahead_items(d_advance)
     {
       d_burst = false;
       d_tag_burst = pmt::mp("burst");
@@ -81,6 +82,7 @@ namespace gr {
       d_fft_plan = fftwf_plan_dft_1d(d_block_size, reinterpret_cast<fftwf_complex*>(d_fft_in), reinterpret_cast<fftwf_complex*>(d_fft_out), FFTW_FORWARD, FFTW_PATIENT | FFTW_DESTROY_INPUT);
 
       set_history(d_readahead_items + 1);
+      set_output_multiple(d_advance);
     }
 
     /*
@@ -100,8 +102,8 @@ namespace gr {
     burst_detector_impl::forecast(int noutput_items,
                        gr_vector_int &ninput_items_required)
     {
-      size_t block_count = ceilf(float(noutput_items) / d_block_size);
-      ninput_items_required[0] = block_count * d_block_size + history() - 1;
+      size_t block_count = ceilf(float(noutput_items) / d_advance);
+      ninput_items_required[0] = block_count * d_advance + history() - 1;
     }
 
     int
@@ -113,13 +115,13 @@ namespace gr {
         const gr_complex *in = (const gr_complex*)input_items[0];
         gr_complex *out = (gr_complex*)output_items[0];
 
-        const size_t block_count = std::min(ninput_items[0], noutput_items) / d_block_size;
+        const size_t block_count = std::min(ninput_items[0], noutput_items) / d_advance;
 
         const uint64_t _nitems_written = nitems_written(0);
         for(size_t block_n=0; block_n<block_count; block_n++) {
-          const size_t index_start = block_n * d_block_size;
+          const size_t index_start = block_n * d_advance;
 
-          volk_32fc_32f_multiply_32fc((gr_complex*)d_fft_in, &in[index_start + d_readahead_items], d_fft_window, d_block_size);
+          volk_32fc_32f_multiply_32fc((gr_complex*)d_fft_in, &in[index_start], d_fft_window, d_block_size);
           fftwf_execute(d_fft_plan);
           volk_32fc_magnitude_32f(d_temp_f, (gr_complex*)d_fft_out, d_block_size);
 
@@ -145,7 +147,8 @@ namespace gr {
           }
         }
 
-        noutput_items = block_count * d_block_size;
+        //noutput_items = block_count * d_block_size;
+        // Effective delay of d_advance samples.
         memcpy(out, in, noutput_items * sizeof(gr_complex));
 
         consume_each(noutput_items);

@@ -37,6 +37,7 @@ namespace gr {
       pmt::pmt_t d_tag_burst;
 
       size_t d_block_size;
+      size_t d_advance;
       size_t d_readahead_items;
 
       float* d_fft_window;
