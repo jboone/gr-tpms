@@ -46,6 +46,7 @@ class source_hackrf(gr.hier_block2):
 		rf_decimation, rf_decimation_remainder = divmod(rf_sampling_rate, if_sampling_rate)
 		if rf_decimation_remainder != 0:
 			raise RuntimeError('RF decimation must be an integer')
+		rf_decimation = int(round(rf_decimation))
 		tuning_frequency = target_frequency - offset_frequency
 
 		self.source = osmosdr.source(args="numchan=1 hackrf=0")
@@ -97,6 +98,7 @@ class source_rtlsdr(gr.hier_block2):
 		rf_decimation, rf_decimation_remainder = divmod(rf_sampling_rate, if_sampling_rate)
 		if rf_decimation_remainder != 0:
 			raise RuntimeError('RF decimation must be an integer')
+		rf_decimation = int(round(rf_decimation))
 		tuning_frequency = target_frequency - offset_frequency
 
 		self.source = osmosdr.source(args="numchan=1 rtl=0")
