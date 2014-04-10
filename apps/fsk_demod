@@ -73,7 +73,7 @@ class top_block(gr.top_block):
 
 		self.source = source_file(args.file, args.sample_rate)
 
-		self.demodulator = fsk_demodulator(args.sample_rate, args.deviation, 1, args.symbol_rate)
+		self.demodulator = fsk_demodulator(args.sample_rate, args.offset, args.deviation, 1, args.symbol_rate)
 		self.connect((self.source, 0), (self.demodulator, 0))
 
 		self.clock_recovery = clock_recovery(args.sample_rate, args.symbol_rate)
@@ -91,7 +91,7 @@ def main():
 	parser = ArgumentParser()
 	parser.add_argument('-f', '--file', type=str, default=None, help="Input file path")
 	parser.add_argument('-r', '--sample-rate', type=float, default=None, help="Sample rate")
-	parser.add_argument('-o', '--offset', type=float, default=0, help="TODO: NOT YET IMPLEMENTED!!!")
+	parser.add_argument('-o', '--offset', type=float, default=0, help="Carrier offset from 0 Hz")
 	parser.add_argument('-d', '--deviation', type=float, default=None, help="Deviation above/below carrier")
 	parser.add_argument('-s', '--symbol-rate', type=float, default=None, help="Symbol rate")
 	parser.add_argument('-a', '--access-code', type=str, default=None, help="Access code")

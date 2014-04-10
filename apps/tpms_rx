@@ -191,7 +191,7 @@ class demodulate_fsk(gr.hier_block2):
 		for deviation, decimation, channel_rate, symbol_rates in configuration:
 			input_rate = float(if_sampling_rate) / decimation
 
-			demodulator = fsk_demodulator(if_sampling_rate, deviation, decimation, channel_rate)
+			demodulator = fsk_demodulator(if_sampling_rate, 0, deviation, decimation, channel_rate)
 			self.connect((self.center_tracking, 0), (demodulator, 0))
 
 			for symbol_rate, access_codes in symbol_rates:

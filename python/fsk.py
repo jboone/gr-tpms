@@ -60,7 +60,7 @@ class fsk_center_tracking(gr.hier_block2):
 		self.connect((self.multiply, 0), (self, 0))
 
 class fsk_demodulator(gr.hier_block2):
-	def __init__(self, sample_rate, deviation, decimation, symbol_rate):
+	def __init__(self, sample_rate, offset, deviation, decimation, symbol_rate):
 		super(fsk_demodulator, self).__init__(
 			"fsk_demodulator",
 			gr.io_signature(1, 1, gr.sizeof_gr_complex*1),
@@ -70,8 +70,8 @@ class fsk_demodulator(gr.hier_block2):
 		symbol_taps_length = int(floor(float(sample_rate) / symbol_rate))
 		symbol_taps = (1,) * symbol_taps_length
 
-		self.symbol_filter_h = filter.freq_xlating_fir_filter_ccf(1, (symbol_taps), deviation, sample_rate)
-		self.symbol_filter_l = filter.freq_xlating_fir_filter_ccf(1, (symbol_taps), -deviation, sample_rate)
+		self.symbol_filter_h = filter.freq_xlating_fir_filter_ccf(1, (symbol_taps), offset + deviation, sample_rate)
+		self.symbol_filter_l = filter.freq_xlating_fir_filter_ccf(1, (symbol_taps), offset - deviation, sample_rate)
 
 		self.mag_h = blocks.complex_to_mag(1)
 		self.mag_l = blocks.complex_to_mag(1)
