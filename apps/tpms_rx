@@ -230,7 +230,7 @@ class top_block(gr.top_block):
 		elif source == 'rtlsdr':
 			self.source = source_rtlsdr(target_frequency, if_sampling_rate)
 		elif source == 'file':
-			self.source = source_file(args.file, if_sampling_rate)
+			self.source = source_file(args.file)
 		else:
 			raise RuntimeError('No source specified')
 

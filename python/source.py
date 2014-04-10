@@ -119,7 +119,7 @@ class source_rtlsdr(gr.hier_block2):
 		self.connect(self.source, self.if_filter, self)
 
 class source_file(gr.hier_block2):
-	def __init__(self, file_path, if_sampling_rate, throttle=False):
+	def __init__(self, file_path, throttle_rate=None):
 		super(source_file, self).__init__(
 			"source_file",
 			gr.io_signature(0, 0, 0),
@@ -128,8 +128,8 @@ class source_file(gr.hier_block2):
 
 		self.source = blocks.file_source(gr.sizeof_gr_complex*1, file_path, False)
 
-		if throttle:
-			self.throttle = blocks.throttle(gr.sizeof_gr_complex*1, if_sampling_rate, True)
+		if throttle_rate:
+			self.throttle = blocks.throttle(gr.sizeof_gr_complex*1, throttle_rate, True)
 			self.connect(self.source, self.throttle, self)
 		else:
 			self.connect(self.source, self)
