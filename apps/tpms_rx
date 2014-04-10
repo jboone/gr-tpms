@@ -222,13 +222,12 @@ class top_block(gr.top_block):
 			"top_block"
 		)
 
-		if_sampling_rate = args.if_rate
 		target_frequency = 315000000
 
 		if source == 'hackrf':
-			self.source = source_hackrf(target_frequency, if_sampling_rate)
+			self.source = source_hackrf(target_frequency, args.if_rate)
 		elif source == 'rtlsdr':
-			self.source = source_rtlsdr(target_frequency, if_sampling_rate)
+			self.source = source_rtlsdr(target_frequency, args.if_rate)
 		elif source == 'file':
 			self.source = source_file(args.file)
 		else:
@@ -237,16 +236,16 @@ class top_block(gr.top_block):
 		if args.bursts:
 			self.burst_detector = tpms.burst_detector()
 
-			self.burst_file_sink = blocks.tagged_file_sink(gr.sizeof_gr_complex*1, if_sampling_rate)
+			self.burst_file_sink = blocks.tagged_file_sink(gr.sizeof_gr_complex*1, args.if_rate)
 			self.connect((self.source, 0), (self.burst_detector, 0))
 			self.connect((self.burst_detector, 0), (self.burst_file_sink, 0))
 
 		self.packet_sink = packet_sink(output_raw=args.raw)
 
-		self.demodulate_ask = demodulate_ask(if_sampling_rate, self.packet_sink)
+		self.demodulate_ask = demodulate_ask(args.if_rate, self.packet_sink)
 		self.connect((self.source, 0), (self.demodulate_ask, 0))
 
-		self.demodulate_fsk = demodulate_fsk(if_sampling_rate, self.packet_sink)
+		self.demodulate_fsk = demodulate_fsk(args.if_rate, self.packet_sink)
 		self.connect((self.source, 0), (self.demodulate_fsk, 0))
 
 def main():
