@@ -222,7 +222,7 @@ class top_block(gr.top_block):
 			"top_block"
 		)
 
-		if_sampling_rate = 400000
+		if_sampling_rate = args.if_rate
 		target_frequency = 315000000
 
 		if source == 'hackrf':
@@ -255,6 +255,7 @@ def main():
 	parser.add_argument('-s', '--source', type=str, default=None, help="Source for live baseband data (hackrf, rtlsdr)")
 	parser.add_argument('-b', '--bursts', action="store_true", help="Save bursts of significant energy to separate files")
 	parser.add_argument('-r', '--raw', action="store_true", help="Include raw (undecoded) bits in output")
+	parser.add_argument('-i', '--if-rate', type=float, default=None, help="IF sampling rate")
 	args = parser.parse_args()
 
 	if args.file:
