@@ -43,6 +43,7 @@ class top_block(gr.top_block):
 
 		sample_rate = args.sample_rate
 		offset = args.offset
+		channel_bandwidth = args.channel_bandwidth
 		symbol_rate = args.symbol_rate
 		access_code = args.access_code
 
@@ -53,8 +54,8 @@ class top_block(gr.top_block):
 		# Temporary work-around for poor structuring of TPMS library code
 		# Moving the channel filter *before* conversion to magnitude.
 		filter_attenuation_db = 40
-		filter_cutoff = symbol_rate * 1.4 * 0.5
-		filter_transition = symbol_rate * 1.4 * 0.2
+		filter_cutoff = channel_bandwidth / 2.0
+		filter_transition = filter_cutoff * 0.2
 		if (filter_cutoff + filter_transition) > nyquist:
 			raise RuntimeError('ASK channel filter exceeds Nyquist frequency')
 
@@ -89,6 +90,7 @@ def main():
 	parser.add_argument('-f', '--file', type=str, default=None, help="Input file path")
 	parser.add_argument('-r', '--sample-rate', type=float, default=None, help="Sample rate")
 	parser.add_argument('-o', '--offset', type=float, default=0, help="Carrier offset from 0 Hz")
+	parser.add_argument('-c', '--channel-bandwidth', type=float, default=0, help="Channel filter bandwidth")
 	parser.add_argument('-s', '--symbol-rate', type=float, default=None, help="Symbol rate")
 	parser.add_argument('-a', '--access-code', type=str, default=None, help="Access code")
 	parser.add_argument('-l', '--length', type=int, default=None, help="Number of bits to dump after detected access code")
