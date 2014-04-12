@@ -19,6 +19,7 @@ include(GrPython)
 
 GR_PYTHON_INSTALL(
     PROGRAMS
+    ask_demod
     fsk_demod
     tpms_burst_ping
     tpms_rx
