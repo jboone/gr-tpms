@@ -71,7 +71,7 @@ class top_block(gr.top_block):
 			"top_block"
 		)
 
-		self.source = source_file(args.file, args.sample_rate)
+		self.source = source_file(args.file)
 
 		self.demodulator = fsk_demodulator(args.sample_rate, args.offset, args.deviation, 1, args.symbol_rate)
 		self.connect((self.source, 0), (self.demodulator, 0))
