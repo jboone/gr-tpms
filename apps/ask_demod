@@ -63,7 +63,7 @@ class top_block(gr.top_block):
 		print(len(filter_taps))
 		#self.filter = filter.freq_xlating_fir_filter_ccf(1, (filter_taps), offset, sample_rate)
 		#self.connect((self.source, 0), (self.filter, 0))
-		self.rotator = blocks.rotator_cc(float(offset) / sample_rate * 2.0 * math.pi)
+		self.rotator = blocks.rotator_cc(float(-offset) / sample_rate * 2.0 * math.pi)
 		self.connect((self.source, 0), (self.rotator, 0))
 		self.filter = filter.fft_filter_ccf(1, (filter_taps))
 		self.connect((self.rotator, 0), (self.filter, 0))
