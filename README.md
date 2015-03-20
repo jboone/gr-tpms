@@ -127,15 +127,15 @@ detected path.
 Once gr-tpms is installed, you may use it in two modes, a live capture mode, or
 decoding from a file. To run live using an RTL-SDR dongle as a signal source:
 
-    tpms_rx --source rtlsdr --if-rate 400000
+    tpms_rx --source rtlsdr --if-rate 400000 --tuned-frequency 315000000
 
 Or using a HackRF:
 
-    tpms_rx --source hackrf --if-rate 400000
+    tpms_rx --source hackrf --if-rate 400000 --tuned-frequency 315000000
 
 To detect and decode from a file:
 
-    tpms_rx --file <filename of complex<float32> file sampled at 400kHz>
+    tpms_rx --if-rate 400000 --file <filename of complex<float32> file sampled at 400kHz>
 
 Optional arguments to tpms_rx include:
 
