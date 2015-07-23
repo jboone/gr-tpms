@@ -24,6 +24,8 @@ For more background on this project, please watch Jared Boone's talk from ToorCo
 
 # Software
 
+Someone has contributed [a Docker container](https://registry.hub.docker.com/u/nobis99/gr-tpms/) as a quick way to bring up gr-tpms on your computer.
+
 This software was developed for and tested with:
 
 * [Python](http://python.org) 2.7
