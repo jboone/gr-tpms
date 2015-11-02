@@ -21,7 +21,7 @@
 include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
+link_directories(${Boost_LIBRARY_DIRS} ${GNURADIO_RUNTIME_LIBRARY_DIRS})
 
 list(APPEND tpms_sources
     ask_env_impl.cc
@@ -30,7 +30,7 @@ list(APPEND tpms_sources
 )
 
 add_library(gnuradio-tpms SHARED ${tpms_sources})
-target_link_libraries(gnuradio-tpms ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} fftw3f volk)
+target_link_libraries(gnuradio-tpms ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} fftw3f)
 set_target_properties(gnuradio-tpms PROPERTIES DEFINE_SYMBOL "gnuradio_tpms_EXPORTS")
 
 ########################################################################

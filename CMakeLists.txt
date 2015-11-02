@@ -88,7 +88,7 @@ find_package(CppUnit)
 # of GR_REQUIRED_COMPONENTS (in all caps) and change "version" to the
 # minimum API compatible version required.
 #
-set(GR_REQUIRED_COMPONENTS RUNTIME BLOCKS FILTER PMT)
+set(GR_REQUIRED_COMPONENTS RUNTIME BLOCKS FILTER PMT VOLK)
 find_package(Gnuradio "3.7.2" REQUIRED)
 
 if(NOT GNURADIO_RUNTIME_FOUND)
