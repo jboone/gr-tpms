@@ -71,7 +71,7 @@ namespace gr {
       d_fft_window = (float*)volk_malloc(d_block_size * sizeof(float), 256);
       assert((d_fft_window & 0xff) == 0);
 
-      std::vector<float> window = fft::window::hanning(d_block_size);
+      std::vector<float> window = fft::window::hann(d_block_size);
       std::copy(window.begin(), window.end(), d_fft_window);
 
       d_temp_f = (float*)volk_malloc(d_block_size * sizeof(float), 256);
