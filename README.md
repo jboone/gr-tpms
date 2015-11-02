@@ -116,6 +116,7 @@ following:
     cmake ..
     make
     sudo make install
+    sudo ldconfig   # only if you're using Linux
 
 If you have trouble building or running gr-tpms, check that you have all the
 dependencies installed. Also, review your CMake configuration by running
@@ -123,6 +124,10 @@ dependencies installed. Also, review your CMake configuration by running
 For example, using MacPorts on Mac OS X 10.9, I've had to adjust
 PYTHON_INCLUDE_DIR and PYTHON_LIBRARY to start with "/opt/local" instead of the
 detected path.
+
+If you're using Linux, and run into a SWIG exception thrown by Python,
+metioning _tpms_swig, swig_import_helper, load_module, etc., you may have
+missed running ldconfig.
 
 # Using
 
