@@ -162,6 +162,9 @@ class demodulate_fsk(gr.hier_block2):
 			gr.io_signature(0, 0, 0),
 		)
 
+		self.center_tracking = fsk_center_tracking(if_sampling_rate)
+		self.connect((self, 0), (self.center_tracking, 0))
+
 		configuration = (
 			(38400, 10, 19200, (
 				(19220, ('01010101010101010101010101010110',)),
@@ -189,7 +192,7 @@ class demodulate_fsk(gr.hier_block2):
 			input_rate = float(if_sampling_rate) / decimation
 
 			demodulator = fsk_demodulator(if_sampling_rate, 0, deviation, decimation, channel_rate)
-			self.connect((self, 0), (demodulator, 0))
+			self.connect((self.center_tracking, 0), (demodulator, 0))
 
 			for symbol_rate, access_codes in symbol_rates:
 				if not isinstance(access_codes, tuple):
@@ -240,11 +243,8 @@ class top_block(gr.top_block):
 		self.demodulate_ask = demodulate_ask(args.if_rate, self.packet_sink)
 		self.connect((self.source, 0), (self.demodulate_ask, 0))
 
-		self.center_tracking = fsk_center_tracking(args.if_rate)
-		self.connect((self.source, 0), (self.center_tracking, 0))
-
 		self.demodulate_fsk = demodulate_fsk(args.if_rate, self.packet_sink)
-		self.connect((self.center_tracking, 0), (self.demodulate_fsk, 0))
+		self.connect((self.source, 0), (self.demodulate_fsk, 0))
 
 def main():
 	parser = ArgumentParser()
