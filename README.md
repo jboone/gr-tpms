@@ -105,6 +105,78 @@ I like to use a SAW filter between the antenna and receiver to further cut noise
 and interference. It's certainly not necessary (and likely overkill). The SAW
 filter I use is built from a PCB I designed.
 
+# Build/Install Dependencies
+
+> Install crcmod using pip (PyPi) - *Ubuntu/Debian*
+
+```shell
+sudo apt-get install gcc python-dev python-setuptools
+sudo easy_install -U pip
+sudo pip install crcmod
+```
+
+> Install crcmod using pip (PyPi) - *CentOS/Fedora/RHEL*
+
+```shell
+sudo yum install gcc openssl-devel python-devel python-setuptools
+sudo easy_install -U pip
+sudo pip install crcmod
+```
+
+> Install pybombs *Ubuntu/Debian* (*CentOS/RHEL* is supported by pybombs, just use rpm instead of deb below)
+
+To handle installing you can use pybombs, which will attempt to download and install by deb/rpm, and if not available will build from source, handling all dependencies along the way.
+```shell
+cd ~
+git clone git://github.com/pybombs/pybombs
+```
+
+You will need to configure pybombs before you can install anything.
+* **gituser**: username for access to any restricted github or other repos.
+* **prefix**: where everything will be installed to, required write permissions set this to `/usr/local`
+* **install order**: set the order for preferred install, options available  *deb, rpm, src*
+* **forcepkgs**: any packages you dont want pybombs to install or update
+* **timeout**: how long (in seconds) to wait before retrying download
+
+If you know how to set library paths you can use anything you want for prefix, but to keep everything simple and using sudo **_Don't forget to set prefix as_** `/usr/local`
+
+You *will* need to use sudo when running `tpms_rx` below
+
+```shell
+cd pybombs
+./pybombs config
+```
+
+> Install GNU Radio
+
+```shell
+sudo ./pybombs install gnuradio
+```
+
+> Install FFTW
+
+```shell
+sudo ./pybombs install fftw
+```
+
+> Install RTL SDR
+
+```shell
+sudo ./pybombs install rtl-sdr
+```
+
+> Install GrOsmoSDR
+
+```shell
+sudo ./pybombs install gr-osmosdr
+```
+
+> **Update Lib Links** (don't forget this!)
+
+```shell
+sudo ldconfig
+```
+
 # Building
 
 Assuming you have the above prerequisites installed, clone this repo and do the
