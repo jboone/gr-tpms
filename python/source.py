@@ -120,6 +120,44 @@ class source_rtlsdr(gr.hier_block2):
 
 		self.connect(self.source, self.if_filter, self)
 
+class source_limesdr(gr.hier_block2):
+	def __init__(self, target_frequency, if_sampling_rate):
+		super(source_limesdr, self).__init__(
+			"source_limesdr",
+			gr.io_signature(0, 0, 0),
+			gr.io_signature(1, 1, gr.sizeof_gr_complex*1),
+		)
+
+		import limesdr
+
+		rf_sampling_rate = 10e6
+		baseband_bandwidth = 1750000
+		offset_frequency = 0
+
+		rf_gain = 30			# Gains set assuming a front-end filter keeps out-of-band noise down.
+
+		if_filter_attenuation = 60
+
+		rf_decimation, rf_decimation_remainder = divmod(rf_sampling_rate, if_sampling_rate)
+		if rf_decimation_remainder != 0:
+			raise RuntimeError('RF decimation must be an integer')
+		rf_decimation = int(round(rf_decimation))
+		tuning_frequency = target_frequency - offset_frequency
+
+		self.source = limesdr.source('', 0, '')
+		self.source.set_sample_rate(rf_sampling_rate)
+		self.source.set_center_freq(tuning_frequency, 0)
+		self.source.set_gain(rf_gain, 0)
+		self.source.set_antenna(2,0)
+		self.source.set_bandwidth(max(1.5e6, baseband_bandwidth), 0)
+		self.source.calibrate(max(2.5e6, rf_sampling_rate), 0)
+
+		if_taps = firdes.low_pass_2(1.0, rf_sampling_rate, if_sampling_rate*0.45, if_sampling_rate*0.1, if_filter_attenuation)
+		self.if_filter = filter.freq_xlating_fir_filter_ccc(rf_decimation, (if_taps), offset_frequency, rf_sampling_rate)
+		#self.if_filter.set_min_output_buffer(1048576)
+
+		self.connect(self.source, self.if_filter, self)
+
 class source_file(gr.hier_block2):
 	def __init__(self, file_path, throttle_rate=None):
 		super(source_file, self).__init__(
