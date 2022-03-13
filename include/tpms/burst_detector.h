@@ -35,7 +35,7 @@ namespace gr {
     class TPMS_API burst_detector : virtual public gr::block
     {
      public:
-      typedef boost::shared_ptr<burst_detector> sptr;
+      typedef std::shared_ptr<burst_detector> sptr;
 
       /*!
        * \brief Return a shared_ptr to a new instance of tpms::burst_detector.

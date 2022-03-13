@@ -36,7 +36,7 @@ namespace gr {
     class TPMS_API fixed_length_frame_sink : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<fixed_length_frame_sink> sptr;
+      typedef std::shared_ptr<fixed_length_frame_sink> sptr;
 
       /*!
        * \brief Return a shared_ptr to a new instance of tpms::fixed_length_frame_sink.

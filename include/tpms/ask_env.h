@@ -35,7 +35,7 @@ namespace gr {
     class TPMS_API ask_env : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<ask_env> sptr;
+      typedef std::shared_ptr<ask_env> sptr;
 
       /*!
        * \class ask_env

@@ -38,7 +38,7 @@ import tpms
 
 from tpms.packet_check import packet_decode
 
-from tpms.source import source_hackrf, source_rtlsdr, source_file
+from tpms.source import source_hackrf, source_rtlsdr, source_limesdr, source_file
 from tpms.ask import ask_channel_filter
 from tpms.fsk import fsk_center_tracking, fsk_demodulator
 from tpms.decode import clock_recovery
@@ -226,6 +226,8 @@ class top_block(gr.top_block):
 			self.source = source_hackrf(args.tuned_frequency, args.if_rate)
 		elif source == 'rtlsdr':
 			self.source = source_rtlsdr(args.tuned_frequency, args.if_rate)
+		elif source == 'limesdr':
+			self.source = source_limesdr(args.tuned_frequency, args.if_rate)
 		elif source == 'file':
 			self.source = source_file(args.file)
 		else:
