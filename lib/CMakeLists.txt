@@ -24,7 +24,11 @@ if(NOT tpms_sources)
 endif(NOT tpms_sources)
 
 add_library(gnuradio-tpms SHARED ${tpms_sources})
-target_link_libraries(gnuradio-tpms gnuradio::gnuradio-runtime)
+target_link_libraries(gnuradio-tpms gnuradio::gnuradio-runtime
+    fftw3f::fftw3f
+    gnuradio::gnuradio-blocks
+    gnuradio::gnuradio-filter
+    gnuradio::gnuradio-fft)
 target_include_directories(gnuradio-tpms
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
     PUBLIC $<INSTALL_INTERFACE:include>
