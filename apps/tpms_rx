@@ -36,12 +36,12 @@ import pmt
 
 import gnuradio.tpms as tpms
 
-from tpms.packet_check import packet_decode
+from gnuradio.tpms.packet_check import packet_decode
 
-from tpms.source import source_hackrf, source_rtlsdr, source_limesdr, source_file
-from tpms.ask import ask_channel_filter
-from tpms.fsk import fsk_center_tracking, fsk_demodulator
-from tpms.decode import clock_recovery
+from gnuradio.tpms.source import source_hackrf, source_rtlsdr, source_limesdr, source_file
+from gnuradio.tpms.ask import ask_channel_filter
+from gnuradio.tpms.fsk import fsk_center_tracking, fsk_demodulator
+from gnuradio.tpms.decode import clock_recovery
 
 class packet_sink(gr.basic_block):
 	def __init__(self, output_raw=False):

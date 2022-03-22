@@ -27,7 +27,7 @@ from datetime import datetime
 
 import crcmod
 
-from bit_coding import *
+from .bit_coding import *
 
 def crc8(polynomial, init):
 	check_fn = crcmod.mkCrcFun(0x100 | polynomial, initCrc=init, rev=False)

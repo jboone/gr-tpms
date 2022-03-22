@@ -26,9 +26,9 @@ from gnuradio import blocks
 from gnuradio import digital
 from gnuradio import gr
 
-from tpms.source import source_file
-from tpms.fsk import fsk_demodulator
-from tpms.decode import clock_recovery, tag_print
+from gnuradio.tpms.source import source_file
+from gnuradio.tpms.fsk import fsk_demodulator
+from gnuradio.tpms.decode import clock_recovery, tag_print
 
 class top_block(gr.top_block):
 	def __init__(self, args):
