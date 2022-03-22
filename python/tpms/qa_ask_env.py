@@ -20,7 +20,7 @@
 
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
-import tpms_swig as tpms
+import tmps_python as tpms
 
 class qa_ask_env (gr_unittest.TestCase):
 

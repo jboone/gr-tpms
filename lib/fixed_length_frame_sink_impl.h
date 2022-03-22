@@ -21,7 +21,7 @@
 #ifndef INCLUDED_TPMS_FIXED_LENGTH_FRAME_SINK_IMPL_H
 #define INCLUDED_TPMS_FIXED_LENGTH_FRAME_SINK_IMPL_H
 
-#include <tpms/fixed_length_frame_sink.h>
+#include <gnuradio/tpms/fixed_length_frame_sink.h>
 
 namespace gr {
   namespace tpms {

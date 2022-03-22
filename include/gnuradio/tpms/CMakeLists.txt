@@ -22,5 +22,5 @@ install(FILES
     api.h
     ask_env.h
     fixed_length_frame_sink.h
-    burst_detector.h DESTINATION include/tpms
+    burst_detector.h DESTINATION include/gnuradio/tpms
 )

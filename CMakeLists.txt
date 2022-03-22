@@ -63,7 +63,7 @@ if(NOT CMAKE_MODULES_DIR)
   set(CMAKE_MODULES_DIR lib${LIB_SUFFIX}/cmake)
 endif(NOT CMAKE_MODULES_DIR)
 
-set(GR_INCLUDE_DIR      include/tpms)
+set(GR_INCLUDE_DIR      include/gnuradio/tpms)
 set(GR_CMAKE_DIR        ${CMAKE_MODULES_DIR}/gnuradio-tpms)
 set(GR_PKG_DATA_DIR     ${GR_DATA_DIR}/${CMAKE_PROJECT_NAME})
 set(GR_PKG_DOC_DIR      ${GR_DOC_DIR}/${CMAKE_PROJECT_NAME})
@@ -119,7 +119,7 @@ add_custom_target(uninstall
 ########################################################################
 # Add subdirectories
 ########################################################################
-add_subdirectory(include/tpms)
+add_subdirectory(include/gnuradio/tpms)
 add_subdirectory(lib)
 add_subdirectory(apps)
 add_subdirectory(docs)

@@ -1,5 +1,5 @@
 *~
 *.pyc
 *.pyo
-build*/
+build_utils.py/
 examples/grc/*.py

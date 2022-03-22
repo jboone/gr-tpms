@@ -23,6 +23,7 @@ namespace py = pybind11;
 // BINDING_FUNCTION_PROTOTYPES(
 void bind_burst_detector(py::module& m);
 void bind_fixed_length_frame_sink(py::module& m);
+void bind_ask_env(py::module& m);
 // ) END BINDING_FUNCTION_PROTOTYPES
 
 
@@ -53,5 +54,6 @@ PYBIND11_MODULE(tpms_python, m)
     // BINDING_FUNCTION_CALLS(
     bind_burst_detector(m);
     bind_fixed_length_frame_sink(m);
+    bind_ask_env(m);
     // ) END BINDING_FUNCTION_CALLS
 }

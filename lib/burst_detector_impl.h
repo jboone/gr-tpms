@@ -21,7 +21,7 @@
 #ifndef INCLUDED_TPMS_BURST_DETECTOR_IMPL_H
 #define INCLUDED_TPMS_BURST_DETECTOR_IMPL_H
 
-#include <tpms/burst_detector.h>
+#include <gnuradio/tpms/burst_detector.h>
 
 #include <fftw3.h>
 

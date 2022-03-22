@@ -18,38 +18,39 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_TPMS_ASK_ENV_H
-#define INCLUDED_TPMS_ASK_ENV_H
+#ifndef INCLUDED_TPMS_FIXED_LENGTH_FRAME_SINK_H
+#define INCLUDED_TPMS_FIXED_LENGTH_FRAME_SINK_H
 
-#include <tpms/api.h>
+#include <gnuradio/tpms/api.h>
 #include <gnuradio/sync_block.h>
+#include <pmt/pmt.h>
 
 namespace gr {
   namespace tpms {
 
     /*!
-     * \brief Tire Pressure Monitoring System
+     * \brief <+description of block+>
      * \ingroup tpms
      *
      */
-    class TPMS_API ask_env : virtual public gr::sync_block
+    class TPMS_API fixed_length_frame_sink : virtual public gr::sync_block
     {
      public:
-      typedef std::shared_ptr<ask_env> sptr;
+      typedef std::shared_ptr<fixed_length_frame_sink> sptr;
 
       /*!
-       * \class ask_env
-       * \brief Bipolar envelope detection and scaling to +/- 1.0.
-       * \param alpha Multiplicative ate at which envelope peaks decay.
+       * \brief Return a shared_ptr to a new instance of tpms::fixed_length_frame_sink.
+       *
+       * To avoid accidental use of raw pointers, tpms::fixed_length_frame_sink's
+       * constructor is in a private implementation
+       * class. tpms::fixed_length_frame_sink::make is the public interface for
+       * creating new instances.
        */
-      static sptr make(float alpha);
-
-      virtual void set_alpha(float var) = 0;
-      virtual float alpha() = 0;
+      static sptr make(int frame_length, pmt::pmt_t attributes);
     };
 
   } // namespace tpms
 } // namespace gr
 
-#endif /* INCLUDED_TPMS_ASK_ENV_H */
+#endif /* INCLUDED_TPMS_FIXED_LENGTH_FRAME_SINK_H */
 

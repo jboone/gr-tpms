@@ -29,6 +29,9 @@ include(GrPybind)
 ########################################################################
 
 list(APPEND tpms_python_files
+    burst_detector_python.cc
+    fixed_length_frame_sink_python.cc
+    ask_env_python.cc
     python_bindings.cc)
 
 GR_PYBIND_MAKE_OOT(tpms

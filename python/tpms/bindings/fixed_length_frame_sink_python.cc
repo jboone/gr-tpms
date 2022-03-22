@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(fixed_length_frame_sink.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(74e51deda3cdda01c3853b6f643ced54)                     */
+/* BINDTOOL_HEADER_FILE_HASH(e50b1822fbd07f38ef58c7cb558ddbc5)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,7 +23,7 @@
 
 namespace py = pybind11;
 
-#include <tpms/fixed_length_frame_sink.h>
+#include <gnuradio/tpms/fixed_length_frame_sink.h>
 // pydoc.h is automatically generated in the build directory
 #include <fixed_length_frame_sink_pydoc.h>
 

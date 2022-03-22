@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(burst_detector.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(0ced2cf2d4e2678d0de5aadff549dab7)                     */
+/* BINDTOOL_HEADER_FILE_HASH(2c342e87368b0162483eb8e296c9a488)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,7 +23,7 @@
 
 namespace py = pybind11;
 
-#include <tpms/burst_detector.h>
+#include <gnuradio/tpms/burst_detector.h>
 // pydoc.h is automatically generated in the build directory
 #include <burst_detector_pydoc.h>
 

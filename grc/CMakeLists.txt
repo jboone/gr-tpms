@@ -16,7 +16,7 @@
 # Boston, MA 02110-1301, USA.
 
 install(FILES
-    tpms_ask_env.xml
-    tpms_fixed_length_frame_sink.xml
-    tpms_burst_detector.xml DESTINATION share/gnuradio/grc/blocks
+    tpms_ask_env.block.yml
+    tpms_fixed_length_frame_sink.block.yml
+    tpms_burst_detector.block.yml DESTINATION share/gnuradio/grc/blocks
 )

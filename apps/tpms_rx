@@ -34,7 +34,7 @@ from gnuradio import filter
 from gnuradio.filter import firdes
 import pmt
 
-import tpms
+import gnuradio.tpms as tpms
 
 from tpms.packet_check import packet_decode
 

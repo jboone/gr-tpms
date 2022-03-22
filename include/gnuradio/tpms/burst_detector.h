@@ -21,7 +21,7 @@
 #ifndef INCLUDED_TPMS_BURST_DETECTOR_H
 #define INCLUDED_TPMS_BURST_DETECTOR_H
 
-#include <tpms/api.h>
+#include <gnuradio/tpms/api.h>
 #include <gnuradio/block.h>
 
 namespace gr {

@@ -24,7 +24,7 @@ from gnuradio import gr
 from gnuradio import filter
 from gnuradio.filter import firdes
 
-import tpms
+import gnuradio.tpms as tpms
 
 class ask_channel_filter(gr.hier_block2):
 	def __init__(self, sample_rate, decimation, symbol_rate):
