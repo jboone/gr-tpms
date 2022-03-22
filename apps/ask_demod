@@ -29,11 +29,11 @@ from gnuradio import gr
 from gnuradio import filter
 from gnuradio.filter import firdes
 
-import tpms
+import gnuradio.tpms as tpms
 
-from tpms.source import source_file
-from tpms.ask import ask_channel_filter
-from tpms.decode import clock_recovery, tag_print
+from gnuradio.tpms.source import source_file
+from gnuradio.tpms.ask import ask_channel_filter
+from gnuradio.tpms.decode import clock_recovery, tag_print
 
 class top_block(gr.top_block):
 	def __init__(self, args):

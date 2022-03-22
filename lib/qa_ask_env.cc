@@ -22,7 +22,7 @@
 #include <gnuradio/attributes.h>
 #include <cppunit/TestAssert.h>
 #include "qa_ask_env.h"
-#include <tpms/ask_env.h>
+#include <gnuradio/tpms/ask_env.h>
 
 namespace gr {
   namespace tpms {

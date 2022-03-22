@@ -22,7 +22,7 @@
 #include <gnuradio/attributes.h>
 #include <cppunit/TestAssert.h>
 #include "qa_fixed_length_frame_sink.h"
-#include <tpms/fixed_length_frame_sink.h>
+#include <gnuradio/tpms/fixed_length_frame_sink.h>
 
 namespace gr {
   namespace tpms {
